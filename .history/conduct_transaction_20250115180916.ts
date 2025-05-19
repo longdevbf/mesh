@@ -5,9 +5,10 @@ import {wallet, blockchainProvider} from "./test_provider"
 export const txBuilder = new MeshTxBuilder({
     fetcher: blockchainProvider,
     submitter: blockchainProvider,
-    verbose: true, 
+    verbose: true, //true -> thong tin chi tiet ve giao dich
 });
 async function main(){
+
 const changeAddress = await wallet.getChangeAddress();
 const utxos = await wallet.getUtxos();
 const unsignedTx = await txBuilder

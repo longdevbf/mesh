@@ -27,7 +27,7 @@ async function main() {
         submitter: blockchainProvider, // Provider để gửi giao dịch
         key: {
             type: 'mnemonic', // loai 24 ki tu
-            words: secret
+            words: secret.split(' ')
         },
     });
     

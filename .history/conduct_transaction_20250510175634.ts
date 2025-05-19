@@ -8,6 +8,7 @@ export const txBuilder = new MeshTxBuilder({
     verbose: true, 
 });
 async function main(){
+
 const changeAddress = await wallet.getChangeAddress();
 const utxos = await wallet.getUtxos();
 const unsignedTx = await txBuilder

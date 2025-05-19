@@ -1,8 +1,8 @@
-import { generateMnemonic, MeshWallet, BlockfrostProvider } from '@meshsdk/core';
+import { generateMnemonic, MeshWallet } from '@meshsdk/core';
 import { words } from 'lodash';
 //nhap module fs cua nodejs de thao tac voi cac tep tin
 import fs from 'node:fs';
-export const blockchainProvider = new BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');
+
 async function main() {
   try {
     // Tạo chuỗi mnemonic

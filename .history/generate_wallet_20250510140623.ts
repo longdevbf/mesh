@@ -1,8 +1,8 @@
-import { generateMnemonic, MeshWallet, BlockfrostProvider } from '@meshsdk/core';
+import { generateMnemonic, MeshWallet } from '@meshsdk/core';
 import { words } from 'lodash';
 //nhap module fs cua nodejs de thao tac voi cac tep tin
 import fs from 'node:fs';
-export const blockchainProvider = new BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');
+
 async function main() {
   try {
     // Tạo chuỗi mnemonic
@@ -13,22 +13,12 @@ async function main() {
    // const words = secret.split(' ');
     
     // Tạo ví với mảng các từ
-    // const wallet = new MeshWallet({
-    //   networkId: 0,
-
-    //   key: {
-    //     type: 'mnemonic',
-    //     words: [words], // Truyền mảng các từ thay vì [secret]
-    //   },
-    // });
     const wallet = new MeshWallet({
-        networkId: 0, // Mạng Cardano: 0 là Testnet (Preview, PreprodPreprod)
-        fetcher: blockchainProvider, // Provider để truy vấn blockchain
-        submitter: blockchainProvider, // Provider để gửi giao dịch
-        key: {
-            type: 'mnemonic', // loai 24 ki tu
-            words: secret
-        },
+      networkId: 0,
+      key: {
+        type: 'mnemonic',
+        words: [words], // Truyền mảng các từ thay vì [secret]
+      },
     });
     
     // Lấy địa chỉ ví
