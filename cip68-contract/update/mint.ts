@@ -79,7 +79,7 @@ import {
          // Required by 
         _pk: userPubKeyHash,
          // Required by validator
-        hex: "kasjdiuopwipodpeoiwopioeewppoife",
+        text: ''
       };
       
       const assets = blockchainProvider.fetchAssetAddresses(walletAddress);

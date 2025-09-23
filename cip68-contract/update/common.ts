@@ -67,7 +67,7 @@ import {
   
   
   
-  export async function getWalletInfoForTx(wallet) {
+  export async function getWalletInfoForTx(wallet: any) {
     const utxos = await wallet.getUtxos();
     const walletAddress = (await wallet.getUsedAddresses())[0];
     const collateral = (await wallet.getCollateral())[0];

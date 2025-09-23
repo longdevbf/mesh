@@ -5,7 +5,7 @@ import {
   BlockfrostProvider,
   deserializeDatum,
 } from "@meshsdk/core";
-import { wallet } from './common';
+import { wallet } from '../common';
 
 // Initialize blockchain provider
 const blockchainProvider = new BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');

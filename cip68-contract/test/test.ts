@@ -5,7 +5,7 @@ import {
     BlockfrostProvider,
     deserializeDatum,
   } from "@meshsdk/core";
-  import { blockchainProvider, wallet} from "./common";
+  import { blockchainProvider, wallet} from "../common";
  // import { encryptData, decryptData } from "./enCryptAndDecrypt";
   
   interface ParsedAsset {

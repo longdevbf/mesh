@@ -1,12 +1,8 @@
 import {
     CIP68_100,
     stringToHex,
-    mConStr0,
-    metadataToCip68,
     deserializeAddress,
     MeshTxBuilder,
-    BlockfrostProvider,
-    MeshWallet,
     applyParamsToScript,
     resolveScriptHash,
     serializeAddressObj,
@@ -19,12 +15,11 @@ import {
   } from "@meshsdk/core";
   import { isEmpty, isNil } from "lodash";
   import plutus from './plutus.json';
-  import { getWalletInfoForTx, wallet } from './common';
+  import { getWalletInfoForTx, wallet, blockchainProvider} from './common';
   
   // Constants
   const APP_WALLET_ADDRESS = "addr_test1qqwkave5e46pelgysvg6mx0st5zhte7gn79srscs8wv2qp5qkfvca3f7kpx3v3rssm4j97f63v5whrj8yvsx6dac9xrqyqqef6";
   const appNetwork = "preprod";
-  const blockchainProvider = new BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');
   
   // Helper functions
   function readValidator(title: string): string {
@@ -51,7 +46,7 @@ import {
     return await blockchainProvider.fetchAddressUTxOs(address, unit);
   };
   
-  async function burnTokens(params: { assetName: string; quantity: string; txHash?: string }[]) {
+  async function burnTokens(params: { assetName: string; quantity: string; txHash?: string }[]) {//txHash(optional)
     // Get wallet information
     const {utxos, walletAddress, collateral} = await getWalletInfoForTx(wallet);
     const { pubKeyHash: userPubKeyHash } = deserializeAddress(walletAddress);
@@ -92,9 +87,9 @@ import {
       deserializeAddress(exChange).stakeCredentialHash,
       userPubKeyHash,
     ]);
+
     const policyId = resolveScriptHash(mintScriptCbor, "V3");
-    console.log("Building transaction ...");
-    // Process each token update
+
     await Promise.all(
         params.map(async ({ assetName, quantity, txHash }) => {
           const userUtxos = await getAddressUTXOAssets(walletAddress, policyId + CIP68_222(stringToHex(assetName)));
@@ -116,11 +111,12 @@ import {
   
           if (-Number(quantity) === amount) {
             unsignedTx
+            //burn token prefix 222
               .mintPlutusScriptV3()
               .mint(quantity, policyId, CIP68_222(stringToHex(assetName)))
               .mintRedeemerValue(mConStr1([]))
               .mintingScript(mintScriptCbor)
-  
+            //burn token prefix 100
               .mintPlutusScriptV3()
               .mint("-1", policyId, CIP68_100(stringToHex(assetName)))
               .mintRedeemerValue(mConStr1([]))
@@ -130,7 +126,7 @@ import {
               .txIn(storeUtxo.input.txHash, storeUtxo.input.outputIndex)
               .txInInlineDatumPresent()
               .txInRedeemerValue(mConStr1([]))
-              .txInScript(this.storeScriptCbor);
+              .txInScript(storeScriptCbor);
           } else {
             unsignedTx
               .mintPlutusScriptV3()
@@ -156,12 +152,12 @@ import {
           },
         ])
   
-        .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash)
+        .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash) //only owner can burn
         .changeAddress(walletAddress)
         .selectUtxosFrom(utxos)
         .txInCollateral(collateral.input.txHash, collateral.input.outputIndex, collateral.output.amount, collateral.output.address)
         .setNetwork(appNetwork);
-    console.log("Building transaction ...");
+        
     const completeTx = await unsignedTx.complete();
     console.log("Signing transaction ...");
     const signTx = wallet.signTx(completeTx, true);
@@ -177,7 +173,7 @@ import {
       
       const result = await burnTokens([
         {
-          assetName: "Hello World",
+          assetName: "Blockchain",
           quantity: "-1"
           
         }
