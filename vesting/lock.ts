@@ -25,8 +25,10 @@ async function main() {
     },
 
   ];
+  
 
   const { scriptAddr, scriptCbor } = getScript();
+  console.log("Script Address: ", scriptAddr);
   const value = MeshValue.fromAssets(assets);
   console.log(value);
   const meshTxBuilder = new MeshTxBuilder({

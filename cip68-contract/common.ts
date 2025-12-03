@@ -10,7 +10,7 @@ import { applyParamsToScript } from "@meshsdk/core-csl";
 import blueprint from "./plutus.json";
  import plutus from './plutus.json';
 
-export const blockchainProvider = new BlockfrostProvider('preproduHlUjS1ST8kPA9JDjgwDErAl6NiV7jsc');
+export const blockchainProvider = new BlockfrostProvider('preprodhSCpRguTEGct8iqAsKA6Ko0oF010Sepq');
 
 // wallet for signing transactions
 export const wallet = new MeshWallet({
@@ -19,9 +19,12 @@ export const wallet = new MeshWallet({
   submitter: blockchainProvider,
   key: {
     type: 'mnemonic', // loai 24 ki tu
+    // words: [
+    //   "illness", "tomato", "organ", "credit", "hybrid", "path", "slight", "bomb", "allow", "media", "credit", "virtual", "uncle", "blast", "type", "very", "certain", "join", "feed", "repeat", "elbow", "place", "aim", "oblige"
+    // ],
     words: [
-      "illness", "tomato", "organ", "credit", "hybrid", "path", "slight", "bomb", "allow", "media", "credit", "virtual", "uncle", "blast", "type", "very", "certain", "join", "feed", "repeat", "elbow", "place", "aim", "oblige"
-    ], // Danh sách các từ mnemonic - longdevbf
+            "spoil", "maid", "general", "expire", "kidney", "deal", "awful", "clip", "fragile", "kitchen", "reason", "crater", "attitude", "grain", "bitter", "bag", "mouse", "reform", "cactus", "spot", "vital", "sea", "same", "salon"
+          ] // Danh sách các từ mnemonic - longdevbf
   },
 });
 

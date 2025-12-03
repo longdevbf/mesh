@@ -38,22 +38,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var core_1 = require("@meshsdk/core");
 var common_1 = require("./common");
+var blockchainProvider = new core_1.BlockfrostProvider('previewvc1rhxI0zYJBe3C8Atk1W8lm3RVHIUgk');
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var meshTxBuilder, txHash, contractutxos, assets, vestingUtxo, _a, utxos, walletAddress, collateral, collateralInput, collateralOutput, _b, scriptAddr, scriptCbor, pubKeyHash_1, datum, pubkeyCurrent, invalidBefore1, invalidBefore2, txBuilder, unsignedTx, signedTx, txhash, error_1;
+        var txHash, contractutxos, assets, vestingUtxo, _a, utxos, walletAddress, collateral, collateralInput, collateralOutput, _b, scriptAddr, scriptCbor, pubKeyHash_1, datum, pubkeyCurrent, invalidBefore1, txBuilder, unsignedTx, signedTx, txhash, error_1;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
                     _c.trys.push([0, 6, , 7]);
-                    meshTxBuilder = new core_1.MeshTxBuilder({
-                        fetcher: common_1.blockchainProvider,
-                        submitter: common_1.blockchainProvider
-                    });
-                    txHash = "8c276720b920b20714709bc96a942ceade319bf43a5b0020014405914be0d592";
-                    return [4 /*yield*/, common_1.blockchainProvider.fetchUTxOs(txHash)];
+                    txHash = "9c97a43a235a38efa2e7c558168d89bc9a91bbc0c84f799a570aee418e781c3c";
+                    return [4 /*yield*/, blockchainProvider.fetchUTxOs(txHash)];
                 case 1:
                     contractutxos = _c.sent();
-                    //console.log("Contract UTXOs:", contractutxos);
+                    console.log("Contract UTXOs:", contractutxos);
                     if (!contractutxos || contractutxos.length === 0) {
                         throw new Error("No UTXOs found for the given transaction hash.");
                     }
@@ -64,6 +61,7 @@ function main() {
                         },
                     ];
                     vestingUtxo = contractutxos[0];
+                    console.log("Vesting UTXO:", vestingUtxo);
                     return [4 /*yield*/, common_1.getWalletInfoForTx(common_1.wallet)];
                 case 2:
                     _a = _c.sent(), utxos = _a.utxos, walletAddress = _a.walletAddress, collateral = _a.collateral;
@@ -73,30 +71,15 @@ function main() {
                     datum = core_1.deserializeDatum(vestingUtxo.output.plutusData);
                     pubkeyCurrent = datum.fields[2].bytes;
                     invalidBefore1 = core_1.unixTimeToEnclosingSlot(Math.min(datum.fields[0].int, Date.now() - 15000), core_1.SLOT_CONFIG_NETWORK.preprod) + 1;
-                    invalidBefore2 = core_1.slotToBeginUnixTime(invalidBefore1, core_1.SLOT_CONFIG_NETWORK.preprod);
-                    console.log("time : " + invalidBefore1);
-                    console.log("time datum : " + datum.fields[0].int);
-                    console.log("time 2 : ", invalidBefore2);
-                    console.log("preprod : " + core_1.SLOT_CONFIG_NETWORK.preprod);
-                    console.log("min : " + (Date.now() - 15000));
                     txBuilder = new core_1.MeshTxBuilder({
-                        fetcher: common_1.blockchainProvider,
-                        submitter: common_1.blockchainProvider
+                        fetcher: blockchainProvider,
+                        submitter: blockchainProvider
                     });
-                    console.log("Network : ", core_1.SLOT_CONFIG_NETWORK);
-                    console.log("Building transaction...");
-                    console.log("1. : " + pubKeyHash_1);
-                    console.log("2. : " + pubkeyCurrent);
-                    //const signerHash = deserializeAddress(walletAddress).pubKeyHash;
                     return [4 /*yield*/, txBuilder
                             .spendingPlutusScriptV3()
                             .txIn(vestingUtxo.input.txHash, vestingUtxo.input.outputIndex, vestingUtxo.output.amount, scriptAddr)
                             .spendingReferenceTxInInlineDatumPresent()
                             .spendingReferenceTxInRedeemerValue("")
-                            //.txInInlineDatumPresent()
-                            //.txInDatumValue(mConStr0([invalidBefore, ownerPubKeyHash, beneficiaryPubKeyHash]))  
-                            //.txInRedeemerValue(mConStr1([]))
-                            //.txInDatumValue(mConStr0([signerHash]))
                             .txInScript(scriptCbor)
                             .txOut(walletAddress, [])
                             .txInCollateral(collateralInput.txHash, collateralInput.outputIndex, collateralOutput.amount, collateralOutput.address)
@@ -107,7 +90,6 @@ function main() {
                             .setNetwork("preprod")
                             .complete()];
                 case 3:
-                    //const signerHash = deserializeAddress(walletAddress).pubKeyHash;
                     _c.sent();
                     console.log("Transaction built successfully.");
                     unsignedTx = txBuilder.txHex;

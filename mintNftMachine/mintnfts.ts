@@ -3,9 +3,8 @@ import {
     MeshTxBuilder,
     resolveScriptHash,
     stringToHex,
-    Transaction
 } from "@meshsdk/core";
-import type { Mint, AssetMetadata } from '@meshsdk/core';
+import type { AssetMetadata } from '@meshsdk/core';
 import { blockchainProvider, wallet } from "./common";
 import { metadata } from "./metadata";
 import { recipients } from "./recipients";
@@ -14,59 +13,69 @@ async function main() {
     
     const changeAddress = await wallet.getChangeAddress();
     const forgingScript = ForgeScript.withOneSignature(changeAddress); 
+    const policyId = resolveScriptHash(forgingScript);
+    
+    console.log(await wallet.getBalance());
+    
+    const utxos = await wallet.getUtxos();
+    console.log(utxos)
+    const txBuilder = new MeshTxBuilder({
+        fetcher: blockchainProvider,
+        submitter: blockchainProvider,
+        verbose: true,
+    });
 
-    const tx = new Transaction({ initiator: wallet });
+    // Chuẩn bị metadata tổng hợp cho tất cả NFTs
+    const combinedMetadata: { [assetName: string]: AssetMetadata } = {};
 
-    // Xử lý cho trường hợp recipients là đối tượng có giá trị là mảng các chuỗi
+    // Xử lý mint cho từng recipient
     for (let recipient in recipients) {
         const recipientAddress = recipient;
         const assetNames = recipients[recipient];
         
-        // Nếu assetNames là một mảng, lặp qua từng token
         if (Array.isArray(assetNames)) {
             for (const assetName of assetNames) {
                 const assetMetadata: AssetMetadata = metadata[assetName];
                 if (!assetMetadata) {
                     console.warn(`No metadata found for asset: ${assetName}`);
-                    continue; // Bỏ qua token này nếu không tìm thấy metadata
+                    continue;
                 }
                 
-                const asset: Mint = {
-                    assetName: assetName,
-                    assetQuantity: '1',
-                    metadata: assetMetadata,
-                    label: '721',
-                    recipient: recipientAddress
-                };
-                tx.mintAsset(forgingScript, asset);
+                // Thêm metadata vào object tổng hợp
+                combinedMetadata[assetName] = assetMetadata;
+                
+                // Mint NFT và gửi đến recipient
+                const assetNameHex = stringToHex(assetName);
+                txBuilder
+                    .mint("1", policyId, assetNameHex)
+                    .mintingScript(forgingScript)
+                    .txOut(recipientAddress, [
+                        { unit: policyId + assetNameHex, quantity: "1" }
+                    ]);
+                
+                console.log(`Minting ${assetName} for ${recipientAddress}`);
             }
-        }
-        // Trường hợp ngược lại - để tương thích ngược với mã cũ nếu recipients vẫn là định dạng cũ
-        else {
-            const assetName = assetNames; // assetNames là một string trong trường hợp này
-            const assetMetadata: AssetMetadata = metadata[assetName];
-            if (!assetMetadata) {
-                console.warn(`No metadata found for asset: ${assetName}`);
-                continue;
-            }
-            
-            const asset: Mint = {
-                assetName: assetName,
-                assetQuantity: '1',
-                metadata: assetMetadata,
-                label: '721',
-                recipient: recipientAddress
-            };
-            tx.mintAsset(forgingScript, asset);
         }
     }
 
-    const unsignedTx = await tx.build();
-    const signedTx = await wallet.signTx(unsignedTx, false);
+    // Thêm metadata tổng hợp cho tất cả NFTs
+    const fullMetadata = {
+        [policyId]: combinedMetadata
+    };
+
+    console.log("Combined Metadata:", JSON.stringify(fullMetadata, null, 2));
+
+    const unsignedTx = await txBuilder
+        .metadataValue("721", fullMetadata)
+        .changeAddress(changeAddress)
+        .selectUtxosFrom(utxos)
+        .complete();
+    
+    const signedTx = await wallet.signTx(unsignedTx);
     const txHash = await wallet.submitTx(signedTx);
 
-    console.log("Mint Successful !");
-    console.log("TxHash : " + txHash);
+    console.log("Mint Successful!");
+    console.log("TxHash: " + txHash);
 }
 
 main();

@@ -31,7 +31,7 @@ const platformPubKeyHash = deserializeAddress(PLATFORM.address).pubKeyHash;
 const platformStakeCredential = deserializeAddress(PLATFORM.address).stakeCredentialHash;
 
 // Blockchain provider
-const blockchainProvider = new BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');
+const blockchainProvider = new BlockfrostProvider('preprodhSCpRguTEGct8iqAsKA6Ko0oF010Sepq');
 
 // Helper functions
 function readValidator(title: string): string {

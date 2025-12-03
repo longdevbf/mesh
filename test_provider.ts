@@ -11,7 +11,7 @@ import {
 
   import { Script } from "node:vm";
    
-  export const blockchainProvider = new BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');
+  export const blockchainProvider = new BlockfrostProvider('preprodhSCpRguTEGct8iqAsKA6Ko0oF010Sepq');
    
   // wallet for signing transactions
   export const wallet = new MeshWallet({
@@ -20,12 +20,12 @@ import {
       submitter: blockchainProvider, // Provider để gửi giao dịch
       key: {
           type: 'mnemonic', // loai 24 ki tu
-        //   words: [
-        //     "illness", "tomato", "organ", "credit", "hybrid", "path", "slight", "bomb", "allow", "media", "credit", "virtual", "uncle", "blast", "type", "very", "certain", "join", "feed", "repeat", "elbow", "place", "aim", "oblige"
-        //   ], // Danh sách các từ mnemonic - beneficiary
           words: [
-            "spoil", "maid", "general", "expire", "kidney", "deal", "awful", "clip", "fragile", "kitchen", "reason", "crater", "attitude", "grain", "bitter", "bag", "mouse", "reform", "cactus", "spot", "vital", "sea", "same", "salon"
-          ]
+            "illness", "tomato", "organ", "credit", "hybrid", "path", "slight", "bomb", "allow", "media", "credit", "virtual", "uncle", "blast", "type", "very", "certain", "join", "feed", "repeat", "elbow", "place", "aim", "oblige"
+          ], // Danh sách các từ mnemonic - beneficiary
+          // words: [
+          //   "spoil", "maid", "general", "expire", "kidney", "deal", "awful", "clip", "fragile", "kitchen", "reason", "crater", "attitude", "grain", "bitter", "bag", "mouse", "reform", "cactus", "spot", "vital", "sea", "same", "salon"
+          // ]
       },
   });
  

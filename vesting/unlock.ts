@@ -13,27 +13,29 @@ import {
   unixTimeToEnclosingSlot,
   UTxO,
   Transaction,
-  slotToBeginUnixTime
+  slotToBeginUnixTime,
+  BlockfrostProvider
 } from "@meshsdk/core";
 import { MeshVestingContract, VestingDatum } from "@meshsdk/contract";
 import {
-  blockchainProvider,
+ // blockchainProvider,
   getScript,
   getTxBuilder,
   getUtxoByTxHash,
   getWalletInfoForTx,
   wallet,
 } from "./common";
-
+const blockchainProvider = new BlockfrostProvider('previewvc1rhxI0zYJBe3C8Atk1W8lm3RVHIUgk');
+ 
 async function main() {
   try {
     
 
     const txHash =
-      "eb80b8f4300406d694109551ab2344373018e7e07ea7cbfb350d2ebb52d21d7c";
+      "9c97a43a235a38efa2e7c558168d89bc9a91bbc0c84f799a570aee418e781c3c";
      //process.argv[2];
     const contractutxos = await blockchainProvider.fetchUTxOs(txHash);
-    //console.log("Contract UTXOs:", contractutxos);
+    console.log("Contract UTXOs:", contractutxos);
 
     if (!contractutxos || contractutxos.length === 0) {
       throw new Error("No UTXOs found for the given transaction hash.");
@@ -48,7 +50,7 @@ async function main() {
     // Tìm UTXO hợp lệ
     const vestingUtxo = contractutxos[0];
 
-
+    console.log("Vesting UTXO:", vestingUtxo);
     const { utxos, walletAddress, collateral } = await getWalletInfoForTx(wallet);
     const { input: collateralInput, output: collateralOutput } = collateral;
 

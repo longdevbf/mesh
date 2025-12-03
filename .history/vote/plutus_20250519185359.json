@@ -1,0 +1,56 @@
+{
+  "preamble": {
+    "title": "thomas/voting",
+    "description": "Aiken contracts for project 'thomas/voting'",
+    "version": "0.0.0",
+    "plutusVersion": "v3",
+    "compiler": {
+      "name": "Aiken",
+      "version": "v1.1.0+be31a7c"
+    },
+    "license": "Apache-2.0"
+  },
+  "validators": [
+    {
+      "title": "voting.vote.vote",
+      "redeemer": {
+        "title": "_redeemer",
+        "schema": {
+          "$ref": "#/definitions/voting~1VoteRedeemer"
+        }
+      },
+      "compiledCode": "589f01010032323232323225333002323232323253330073370e900418041baa0011323232533300a3370e90000008a99980698061baa00515002161533300a3370e90010008a99980698061baa00515002161533300a3370e90020008a99980698061baa005150021616300a37540082944c02cc024dd50008b1805180580118048009804801180380098021baa00114984d9595cd2ab9d5573caae7d5d0aba21",
+      "hash": "6b9d0ca291fcd21757f77206654ceb3042ffb839195d47a3877f7e09"
+    },
+    {
+      "title": "voting.vote.else",
+      "compiledCode": "589f01010032323232323225333002323232323253330073370e900418041baa0011323232533300a3370e90000008a99980698061baa00515002161533300a3370e90010008a99980698061baa00515002161533300a3370e90020008a99980698061baa005150021616300a37540082944c02cc024dd50008b1805180580118048009804801180380098021baa00114984d9595cd2ab9d5573caae7d5d0aba21",
+      "hash": "6b9d0ca291fcd21757f77206654ceb3042ffb839195d47a3877f7e09"
+    }
+  ],
+  "definitions": {
+    "voting/VoteRedeemer": {
+      "title": "VoteRedeemer",
+      "anyOf": [
+        {
+          "title": "Yes",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": []
+        },
+        {
+          "title": "No",
+          "dataType": "constructor",
+          "index": 1,
+          "fields": []
+        },
+        {
+          "title": "Abstain",
+          "dataType": "constructor",
+          "index": 2,
+          "fields": []
+        }
+      ]
+    }
+  }
+}

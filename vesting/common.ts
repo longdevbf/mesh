@@ -11,7 +11,7 @@ import { applyParamsToScript } from "@meshsdk/core-csl";
 import blueprint from "./plutus.json";
 import { Script } from "node:vm";
  
-export const blockchainProvider = new BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');
+export const blockchainProvider = new BlockfrostProvider('previewvc1rhxI0zYJBe3C8Atk1W8lm3RVHIUgk');
  
 // wallet for signing transactions
 export const wallet = new MeshWallet({
@@ -28,7 +28,6 @@ export const wallet = new MeshWallet({
         // ]
     },
 });
-console.log(wallet.getChangeAddress());
 export function getScript() {
   const scriptCbor = applyParamsToScript(
     blueprint.validators[0].compiledCode,

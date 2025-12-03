@@ -19,7 +19,7 @@ import {
   // Configuration constants
   const PLATFORM_FEE = '1000000';
   const TOKEN_NAME = 'Blockchain';
-  const IMAGE_IPFS_HASH = 'ipfs://bafkreibktdoly7abv5gqg6xn7gskjliyxw3sqflqldznehbh4r3p522p6a';
+  const IMAGE_IPFS_HASH = 'bafkreibktdoly7abv5gqg6xn7gskjliyxw3sqflqldznehbh4r3p522p6a';
   
   async function main() {
     try {

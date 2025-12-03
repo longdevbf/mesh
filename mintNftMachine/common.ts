@@ -11,21 +11,25 @@ import {
 //   import blueprint from "./plutus.json";
   import { Script } from "node:vm";
    
-  export const blockchainProvider = new BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');
+  export const blockchainProvider = new BlockfrostProvider('mainnetkpfb82bUt7Nnyys6MEYDcDB9KmnAEOHt');
    
-  // wallet for signing transactions
+  // wallet for signing transactions  
   export const wallet = new MeshWallet({
       networkId: 0, // Mạng Cardano: 0 là Testnet (Preview, PreprodPreprod)
       fetcher: blockchainProvider, // Provider để truy vấn blockchain
       submitter: blockchainProvider, // Provider để gửi giao dịch
       key: {
           type: 'mnemonic', // loai 24 ki tu
-          words: [
-            "illness", "tomato", "organ", "credit", "hybrid", "path", "slight", "bomb", "allow", "media", "credit", "virtual", "uncle", "blast", "type", "very", "certain", "join", "feed", "repeat", "elbow", "place", "aim", "oblige"
-          ], // Danh sách các từ mnemonic - beneficiary
+          // words: [
+          //   "illness", "tomato", "organ", "credit", "hybrid", "path", "slight", "bomb", "allow", "media", "credit", "virtual", "uncle", "blast", "type", "very", "certain", "join", "feed", "repeat", "elbow", "place", "aim", "oblige"
+          // ], // Danh sách các từ mnemonic - beneficiary
           // words: [
           //   "spoil", "maid", "general", "expire", "kidney", "deal", "awful", "clip", "fragile", "kitchen", "reason", "crater", "attitude", "grain", "bitter", "bag", "mouse", "reform", "cactus", "spot", "vital", "sea", "same", "salon"
           // ]
+          // words: [
+          //   "boss", "slim", "merge", "tired", "drastic", "tip", "ocean", "transfer", "under", "leg", "topic", "soup", "sausage", "flee", "essence", "churn", "bacon", "seat", "verify", "abandon", "develop", "afraid", "atom", "shell"
+          // ]
+
       },
   });
  // console.log(wallet.getChangeAddress());

@@ -4,24 +4,27 @@ import {
     stringToHex,
   } from "@meshsdk/core";
   import { getScript, getTxBuilder, getUtxoByTxHash, wallet } from "./common";
+import { blockchainProvider } from "../vote/adapter";
    
   async function main() {
     // get utxo, collateral and address from wallet
     const utxos = await wallet.getUtxos();
     const walletAddress = (await wallet.getUsedAddresses())[0];
     const collateral = (await wallet.getCollateral())[0];
+   const scriptUtxo = await blockchainProvider.fetchUTxOs('9c97a43a235a38efa2e7c558168d89bc9a91bbc0c84f799a570aee418e781c3c');
    
+      console.log("Script Utxo: ", scriptUtxo);
     const { scriptCbor } = getScript();
-   
+    console.log("Script Cbor: ", scriptCbor);
     // hash of the public key of the wallet, to be used in the datum
     const signerHash = deserializeAddress(walletAddress).pubKeyHash;
     // redeemer value to unlock the funds
     const message = "Hello, World!";
    
     // get the utxo from the script address of the locked funds
-    const txHashFromDesposit = process.argv[2];
-    const scriptUtxo = await getUtxoByTxHash(txHashFromDesposit);
-   
+  //  const txHashFromDesposit = process.argv[2];
+  //  const scriptUtxo = await getUtxoByTxHash('9c97a43a235a38efa2e7c558168d89bc9a91bbc0c84f799a570aee418e781c3c');
+    console.log("Script Utxo: ", scriptUtxo);
       // build transaction with MeshTxBuilder
     const txBuilder = getTxBuilder();
     await txBuilder

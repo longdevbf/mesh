@@ -40,7 +40,7 @@ exports.getAddressUTXOAsset = exports.getUtxoForTx = exports.getWalletInfoForTx 
 var core_1 = require("@meshsdk/core");
 var core_csl_1 = require("@meshsdk/core-csl");
 var plutus_json_1 = require("./plutus.json");
-exports.blockchainProvider = new core_1.BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');
+exports.blockchainProvider = new core_1.BlockfrostProvider('preprodhSCpRguTEGct8iqAsKA6Ko0oF010Sepq');
 // wallet for signing transactions
 exports.wallet = new core_1.MeshWallet({
     networkId: 0,

@@ -145,13 +145,7 @@ import {
       );
   
       unsignedTx
-        .txOut(APP_WALLET_ADDRESS, [
-          {
-            unit: "lovelace",
-            quantity: "1000000",
-          },
-        ])
-  
+      
         .requiredSignerHash(deserializeAddress(walletAddress).pubKeyHash) //only owner can burn
         .changeAddress(walletAddress)
         .selectUtxosFrom(utxos)

@@ -7,28 +7,31 @@ import {
 import { blockchainProvider, wallet } from "./test_provider";
 async function main() {
     const changeAddress = await wallet.getChangeAddress();
+    const lovelace = await wallet.getLovelace();
+    console.log("Lovelace : ", lovelace);
     const forgingScript = ForgeScript.withOneSignature(changeAddress); //tao 1 script ki duy nhat cho nguoi ki
     const txBuilder = new MeshTxBuilder({
         fetcher: blockchainProvider,
         submitter: blockchainProvider,
-        verbose: true, //true -> thong tin chi tiet ve giao dich
+        verbose: true,
     });
     const utxos = await wallet.getUtxos();
     const demo = {
-        name: "NFT demo",
-        image: "ipfs://bafkreigptepn2skanxmg5proqwdv6flcfl24udppoe5lcbqukaekukzgwi",
-        mediaType: "image/jpg",
-        description: "mint by mesh and long",
+        name: "NFt Demo",
+        image: "bafkreib5qjzczafsoaaei2rrsxfcfekjkgvqjo5hcrm2hbu3anvzfzcqzq",
+        mediaType: "image/png",
+        description: "NFT Demo",
     };
     const policyID = resolveScriptHash(forgingScript); //chuyen doi 1 cai script thanh policyID dinh danh
-    const tokenName = "NFT demo 22";
+    const tokenName = "NFT Demo";
     const tokenNameHex = stringToHex(tokenName);
     const metadata = { [policyID]: { [tokenName]: { ...demo } } };
+    console.log(metadata);
+    console.log("metadata : ", metadata);
     const unsignedTx = await txBuilder
         .mint("1", policyID, tokenNameHex)
         .mintingScript(forgingScript)
-        
-        .metadataValue("721", metadata) //chuan theo cardano
+        .metadataValue("721", metadata)
         .changeAddress(changeAddress)
         .selectUtxosFrom(utxos)
         .complete();

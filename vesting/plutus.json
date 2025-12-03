@@ -1,7 +1,7 @@
 {
   "preamble": {
-    "title": "long/vesting",
-    "description": "Aiken contracts for project 'long/vesting'",
+    "title": "long/hello_world",
+    "description": "Aiken contracts for project 'long/hello_world'",
     "version": "0.0.0",
     "plutusVersion": "v3",
     "compiler": {
@@ -12,76 +12,37 @@
   },
   "validators": [
     {
-      "title": "vesting.vesting.spend",
+      "title": "hello_world.hello_world.spend",
       "datum": {
-        "title": "datum_opt",
+        "title": "datum",
         "schema": {
-          "$ref": "#/definitions/vesting~1Datum"
+          "$ref": "#/definitions/hello_world~1Datum"
         }
       },
       "redeemer": {
         "title": "redeemer",
         "schema": {
-          "$ref": "#/definitions/Data"
+          "$ref": "#/definitions/hello_world~1Redeemer"
         }
       },
-      "compiledCode": "5901a7010100323232323232322533300232323232325332330083001300937540042646464a66601666e1d2000300c37540022646464a66601c660026eb0c008c040dd50059bae3013301430103754006294454ccc038cc004dd6180118081baa00b375c60266028602860206ea800c4c8cc88c8c8c8c8c94ccc058c03cc05cdd5001099299980b802099b88007001002375a603660306ea80080044c94ccc058c03cc05cdd5001099299980b802001099b89007001375a603660306ea8008004528180c8011806180a1baa3018301900133016301700133016333012300b30133754602e603000298103d87a80004c0103d87980004bd7018099baa3003301337540046028602a602a602a602a602a602a602a60226ea8030dd6980098089baa0042301400114a044646600200200644a66602800229404c94ccc048cdc79bae301700200414a2266006006002602e00246024602660266026602660266026602660260026020601a6ea800458c03cc040008c038004c028dd50011b874800858c02cc030008c028004c028008c020004c010dd50008a4c26cacae6955ceaab9e5573eae815d0aba21",
-      "hash": "d13324c13a48b69d67ccfc88e3e87f046f4417f57f5c740d515249fb"
+      "compiledCode": "59010301010032323232323225333002323232323253330073370e900118041baa0011323232533300a3370e900018059baa00513232533300f30110021533300c3370e900018069baa003132533300d3371e6eb8c044c03cdd50042450d48656c6c6f2c20576f726c642100100114a06644646600200200644a66602600229404c94ccc044cdc79bae301500200414a2266006006002602a0026eb0c040c044c044c044c044c044c044c044c044c038dd50049bae3010300e37546020601c6ea800c5858dd7180780098061baa00516300d300e002300c001300937540022c6014601600460120026012004600e00260086ea8004526136565734aae7555cf2ab9f5742ae89",
+      "hash": "fdd6640d1c9a4392dd7e829f0cc4e26766539c48b2cf594959e33559"
     },
     {
-      "title": "vesting.vesting.else",
-      "compiledCode": "5901a7010100323232323232322533300232323232325332330083001300937540042646464a66601666e1d2000300c37540022646464a66601c660026eb0c008c040dd50059bae3013301430103754006294454ccc038cc004dd6180118081baa00b375c60266028602860206ea800c4c8cc88c8c8c8c8c94ccc058c03cc05cdd5001099299980b802099b88007001002375a603660306ea80080044c94ccc058c03cc05cdd5001099299980b802001099b89007001375a603660306ea8008004528180c8011806180a1baa3018301900133016301700133016333012300b30133754602e603000298103d87a80004c0103d87980004bd7018099baa3003301337540046028602a602a602a602a602a602a602a60226ea8030dd6980098089baa0042301400114a044646600200200644a66602800229404c94ccc048cdc79bae301700200414a2266006006002602e00246024602660266026602660266026602660260026020601a6ea800458c03cc040008c038004c028dd50011b874800858c02cc030008c028004c028008c020004c010dd50008a4c26cacae6955ceaab9e5573eae815d0aba21",
-      "hash": "d13324c13a48b69d67ccfc88e3e87f046f4417f57f5c740d515249fb"
+      "title": "hello_world.hello_world.else",
+      "compiledCode": "59010301010032323232323225333002323232323253330073370e900118041baa0011323232533300a3370e900018059baa00513232533300f30110021533300c3370e900018069baa003132533300d3371e6eb8c044c03cdd50042450d48656c6c6f2c20576f726c642100100114a06644646600200200644a66602600229404c94ccc044cdc79bae301500200414a2266006006002602a0026eb0c040c044c044c044c044c044c044c044c044c038dd50049bae3010300e37546020601c6ea800c5858dd7180780098061baa00516300d300e002300c001300937540022c6014601600460120026012004600e00260086ea8004526136565734aae7555cf2ab9f5742ae89",
+      "hash": "fdd6640d1c9a4392dd7e829f0cc4e26766539c48b2cf594959e33559"
     }
   ],
   "definitions": {
-    "AssetName": {
-      "title": "AssetName",
-      "dataType": "bytes"
-    },
     "ByteArray": {
-      "dataType": "bytes"
-    },
-    "Data": {
-      "title": "Data",
-      "description": "Any Plutus data."
-    },
-    "Int": {
-      "dataType": "integer"
-    },
-    "PolicyId": {
-      "title": "PolicyId",
       "dataType": "bytes"
     },
     "VerificationKeyHash": {
       "title": "VerificationKeyHash",
       "dataType": "bytes"
     },
-    "vesting/Asset": {
-      "title": "Asset",
-      "anyOf": [
-        {
-          "title": "Asset",
-          "dataType": "constructor",
-          "index": 0,
-          "fields": [
-            {
-              "title": "policy_id",
-              "$ref": "#/definitions/PolicyId"
-            },
-            {
-              "title": "token_name",
-              "$ref": "#/definitions/AssetName"
-            },
-            {
-              "title": "amt",
-              "$ref": "#/definitions/Int"
-            }
-          ]
-        }
-      ]
-    },
-    "vesting/Datum": {
+    "hello_world/Datum": {
       "title": "Datum",
       "anyOf": [
         {
@@ -90,30 +51,24 @@
           "index": 0,
           "fields": [
             {
-              "title": "lock_until",
-              "$ref": "#/definitions/Int"
-            },
-            {
               "title": "owner",
-              "description": "Owner's credentials",
               "$ref": "#/definitions/VerificationKeyHash"
-            },
+            }
+          ]
+        }
+      ]
+    },
+    "hello_world/Redeemer": {
+      "title": "Redeemer",
+      "anyOf": [
+        {
+          "title": "Redeemer",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
             {
-              "title": "beneficiary",
-              "description": "Beneficiary's credentials",
-              "$ref": "#/definitions/VerificationKeyHash"
-            },
-            {
-              "title": "message",
+              "title": "msg",
               "$ref": "#/definitions/ByteArray"
-            },
-            {
-              "title": "nft",
-              "$ref": "#/definitions/vesting~1Asset"
-            },
-            {
-              "title": "locked_ada",
-              "$ref": "#/definitions/Int"
             }
           ]
         }

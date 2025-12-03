@@ -11,7 +11,7 @@ import {
   import blueprint from "./plutus.json";
   import { Script } from "node:vm";
    
-  export const blockchainProvider = new BlockfrostProvider('preprod2DQWsQjqnzLW9swoBQujfKBIFyYILBiL');
+  export const blockchainProvider = new BlockfrostProvider('preprodhSCpRguTEGct8iqAsKA6Ko0oF010Sepq');
    
   // wallet for signing transactions
   export const wallet = new MeshWallet({
