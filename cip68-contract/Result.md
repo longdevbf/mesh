@@ -8,4 +8,8 @@ TxHash Update CIP68: 9fea01127ded6c5ac5f46b84d16370c80dc31d85a469d612ba2ec399895
 npx tsx burn.ts
 TxHash Burn CIP68: 4f31f01c5b74df8246146eeddcb55108b0c0eb6db457b4a3f0f055dae7588742
 
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> ab1c1f08e89b595f06ff253f8c252c0e985e178b
